@@ -1,0 +1,16 @@
+mov si,0700   
+mov cx,[si]   
+mov si,0701     
+mov al,[si]    
+inc si          
+inc si   
+dec cx              
+cmp cx,00h  
+je 
+mov bl,[si]
+cmp al,bl
+jnz 0419
+mov di,0702
+mov [di],0001
+loop 040c/
+hlt

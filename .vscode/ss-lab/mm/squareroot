@@ -1,0 +1,24 @@
+     
+code segment
+    assume cs:code
+    start:
+    mov ax,0000h
+    mov bx,0000h
+    mov cx,0000h
+    mov al,25h
+    mov bl,01h
+    mov cl,00h
+    root:
+    cmp al,00h
+    je zero
+    sub al,bl
+    aas
+    add bl,02h
+    inc cl
+    jmp root
+    zero:
+    add cl,30h
+    mov dl,cl
+    mov ah,2
+    int 21h
+    code ends 

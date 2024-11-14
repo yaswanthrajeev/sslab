@@ -1,0 +1,31 @@
+MOV SI,3000
+MOV DI,4000
+MOV AX,[SI]
+INC SI
+INC SI
+MOV BX,[SI]
+CMP AX,BX
+JC 2017
+SUB AX,BX
+MOV[DI],0000
+JMP 2022
+MOV CX,AX
+MOV AX,BX
+MOV BX,CX
+SUB AX,BX
+MOV [DI],0001
+INC DI
+MOV [DI],AX
+HLT
+//**A->type the code
+    esc and m
+    starting address:of value
+    add values(if value is 1234 add 34 first then 12)
+    esc
+    g->to excecute(starting address of program)
+    reset
+    m
+    go to destination address
+    view answer
+
+/ */

@@ -1,0 +1,51 @@
+data segment
+    msg1 db 10,13,"not prime$"  ; Message for non-prime
+    msg2 db 10,13,"prime$"      ; Message for prime
+data ends
+
+code segment
+    assume cs:code,ds:data
+start:    
+    mov ax,data         ; Initialize DS
+    mov ds,ax
+    
+    mov ax,20h          ; Number to check (25h = 37 in decimal)
+    mov bx,02h          ; Start divisor from 2
+    
+    ; Special case for number 2, which is prime
+    cmp ax, 02h
+    jz prime             ; Jump to prime if number is 2
+    
+check:    
+    mov dx,0000h         ; Clear DX for division (remainder)
+    push ax              ; Save AX (contains number to check) to stack
+    div bx               ; AX = AX / BX, DX = AX % BX
+    pop ax               ; Restore AX after division
+    
+    cmp dx, 00h          ; If remainder is 0, it's not prime
+    jz notp              ; Jump to not prime if divisible
+    
+    inc bx               ; Increment divisor
+    cmp bx, ax           ; If divisor is greater than or equal to AX, number is prime
+    jge prime            ; Jump to prime if BX >= AX
+    
+    jmp check            ; Otherwise, continue checking
+    
+notp:
+    lea dx,msg1          ; Load address of "not prime" message
+    mov ah,09h
+    int 21h              ; Display message
+    jmp xx
+    
+prime:
+    lea dx,msg2          ; Load address of "prime" message
+    mov ah,09h
+    int 21h              ; Display message
+    jmp xx
+    
+xx:
+    mov ah,4Ch           ; Exit program
+    int 21h
+    
+code ends 
+end start
